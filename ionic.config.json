@@ -1,5 +1,7 @@
 {
   "name": "TrackerMan",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
