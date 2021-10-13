@@ -15,11 +15,11 @@
 
   <ion-item>
     <ion-label>Username</ion-label>
-    <ion-input placeholder="Username" (input)='this.inputUpdate("uname", $event)'></ion-input>
+    <ion-input placeholder="Username" (ionBlur)='this.inputUpdate("uname", $event)'></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Password</ion-label>
-    <ion-input placeholder="Password" type="password" (input)='this.inputUpdate("pass", $event)'></ion-input>
+    <ion-input placeholder="Password" type="password" (ionBlur)='this.inputUpdate("pass", $event)'></ion-input>
   </ion-item>
   <ion-item>
     <ion-button (click)='this.testLogin()'>Login</ion-button>
@@ -28,6 +28,6 @@
 
   <ion-item>
     <ion-label>Walk Speed</ion-label>
-    <ion-input placeholder="5" type="number" (input)='this.inputUpdate("walkspeed", $event)'></ion-input>
+    <ion-input placeholder="5" type="number" (ionBlur)='this.inputUpdate("walkspeed", $event)'></ion-input>
   </ion-item>
 </ion-content>

@@ -1,9 +1,17 @@
 import { SettingsPage } from './../settings/settings.page';
 import { Component, OnInit } from '@angular/core';
 import {HomePageModule} from '../home/home.module';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/database';
+
+var lastGps = 0;
+const gpsDelay = 5;
 
 function onSuccess(position: GeolocationPosition) {
-  HomePageModule.route.push(position);
+  if (position.timestamp >= lastGps + gpsDelay){
+    lastGps = position.timestamp;
+    HomePageModule.route.push(position);
+  }
 }
 
 function onError(error: GeolocationPositionError) {
@@ -11,9 +19,19 @@ function onError(error: GeolocationPositionError) {
 }
 
 function saveRouteToFirebase(){
-  alert("Saving the route would go here.")
   // iterate over the route, extract the useful info
-  // put it in firebase
+  // test upload
+  // let points = [];
+  // let x = 100;
+  // let y = 100;
+  // for (let i = 0; i < 1000; i++){
+  //   points.push([x,y]);
+  //   x += 0.01;
+  //   y -= 0.01;
+  // }
+  // let timestamp = "1634118260"
+  // let route = {"duration": 890, "route":points}
+  // firebase.database().ref("routes/" + SettingsPage.uname+"/"+ timestamp).set(route);
 }
 
 @Component({
