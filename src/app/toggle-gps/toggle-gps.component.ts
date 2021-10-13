@@ -1,3 +1,4 @@
+import { SettingsPage } from './../settings/settings.page';
 import { Component, OnInit } from '@angular/core';
 import {HomePageModule} from '../home/home.module';
 
@@ -30,13 +31,15 @@ export class ToggleGpsComponent implements OnInit {
   }
 
   toggleGPS() {
-    if (this.color == "danger") {
-      this.watchId = navigator.geolocation.watchPosition(onSuccess, onError, this.options)
-      this.color = "success";
-    } else {
-      navigator.geolocation.clearWatch(this.watchId);
-      saveRouteToFirebase();
-      this.color = "danger"
+    if (SettingsPage.valid) {
+      if (this.color == "danger") {
+        this.watchId = navigator.geolocation.watchPosition(onSuccess, onError, this.options)
+        this.color = "success";
+      } else {
+        navigator.geolocation.clearWatch(this.watchId);
+        saveRouteToFirebase();
+        this.color = "danger"
+      }
     }
   }
 
