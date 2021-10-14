@@ -12,6 +12,15 @@
       <ion-title size="large">History</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-  <app-explore-container name="History page"></app-explore-container>
+  <ion-button class="maxWid" *ngFor="let item of list">
+    <ion-item class="maxWid">
+      <ion-label>{{item.time}}</ion-label>
+      <ion-icon name="{{item.icon}}-outline"></ion-icon>
+    </ion-item>
+  </ion-button>
+
 </ion-content>

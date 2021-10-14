@@ -5,7 +5,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
 
 var lastGps = 0;
-const gpsDelay = 5;
+const gpsDelay = 2;
 
 function onSuccess(position: GeolocationPosition) {
   if (position.timestamp >= lastGps + gpsDelay){
@@ -30,7 +30,7 @@ function saveRouteToFirebase(){
   //   y -= 0.01;
   // }
   // let timestamp = "1634118260"
-  // let route = {"duration": 890, "route":points}
+  // let route = {duration: 890, distance:dist, route:points}
   // firebase.database().ref("routes/" + SettingsPage.uname+"/"+ timestamp).set(route);
 }
 
