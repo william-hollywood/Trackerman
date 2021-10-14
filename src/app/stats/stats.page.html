@@ -13,5 +13,15 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Stats page"></app-explore-container>
+  <ion-card>
+    <ion-card-header>
+      <strong>Weekly Activity</strong>
+    </ion-card-header>
+    <ion-card-content>
+      <div id="bar-chart-container">
+        <canvas #barCanvas></canvas>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
