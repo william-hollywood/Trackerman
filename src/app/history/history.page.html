@@ -16,7 +16,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-button class="maxWid" *ngFor="let item of list">
+  <ion-button class="maxWid" *ngFor="let item of list" (click)='navigate(item.id)'>
     <ion-item class="maxWid">
       <ion-label>{{item.time}}</ion-label>
       <ion-icon name="{{item.icon}}-outline"></ion-icon>

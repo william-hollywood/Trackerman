@@ -42,8 +42,8 @@ export class StatsPage implements AfterViewInit {
       firebase.database().ref("routes/" + SettingsPage.uname + "/").get().then((val) => {
         if (val.toJSON() != null) {
           val.forEach((route) => {
-            if (parseInt(route.key)*1000 > now - 604800000 + 86400000){
-              let d = new Date(parseInt(route.key)*1000);
+            if (parseInt(route.key) > now - 604800000){
+              let d = new Date(parseInt(route.key));
               let str = d.toLocaleDateString();
               str = str.substr(0, str.length - 5)
               for (let i = 0; i < 7; i++){

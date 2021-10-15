@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
 import { SettingsPage } from '../settings/settings.page';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-history',
@@ -10,10 +12,15 @@ import { SettingsPage } from '../settings/settings.page';
 })
 export class HistoryPage {
 
-  list: { time: string; icon: string; }[] = []
+  list: {id: string; time: string; icon: string; }[] = []
+  
 
-  constructor() {
+  constructor(private router: Router) {
     this.doRefresh(null);
+  }
+
+  navigate(selected){
+    this.router.navigate(['tabs/history/map', {id:selected}])
   }
 
   doRefresh(event) {
@@ -22,9 +29,9 @@ export class HistoryPage {
         if (val.toJSON() != null) {
           this.list = [];
           val.forEach((childsnap) => { // for each route
-            let date = new Date(parseInt(childsnap.key) * 1000);
+            let date = new Date(parseInt(childsnap.key));
             let speed = childsnap.child("distance").val() / (childsnap.child("duration").val() / 3600);
-            let entry = { time: date.toLocaleString(), icon: speed > SettingsPage.walkspeed ? "bicycle" : "walk" };
+            let entry = {id: childsnap.key, time: date.toLocaleString(), icon: speed > SettingsPage.walkspeed ? "bicycle" : "walk" };
             this.list.push(entry);
           });
         }
