@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Home
+      Heart Rate Monitor
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,14 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Home</ion-title>
+      <ion-title size="large">Heart Rate Monitor</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-toggle-gps></app-toggle-gps>
-  <ion-button style="width: 100%;" id="heart" color="danger" (click)="navigate()" >
+  <ion-button style="width: 100%;" id="heart" color="danger" (click)="onTap()">
     <ion-icon name="heart" size="large" id="heart-icon"></ion-icon>
   </ion-button>
+  <ion-card>
+    <ion-label>Heart Rate: {{hr}}</ion-label>
+  </ion-card>
 </ion-content>

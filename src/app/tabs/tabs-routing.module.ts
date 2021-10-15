@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
+        path: 'home/hrtap',
+        loadChildren: () => import('../hrtap/hrtap.module').then(m => m.HRTapPageModule)
+      },
+      {
         path: 'stats',
         loadChildren: () => import('../stats/stats.module').then(m => m.StatsPageModule)
       },
