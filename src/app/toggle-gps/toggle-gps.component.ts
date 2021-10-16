@@ -10,7 +10,7 @@ const gpsDelay = 2;
 function onSuccess(position: GeolocationPosition) {
   if (position.timestamp >= lastGps + gpsDelay) {
     lastGps = position.timestamp;
-    HomePageModule.route.push(position);
+    HomePageModule.route.push({timestamp: Date.now(), coords: {latitude: position.coords.latitude, longitude: position.coords.longitude}});
   }
 }
 
@@ -52,6 +52,7 @@ function saveRouteToFirebase() {
   }
   let route = { duration: length, distance: dist, route: points }
   firebase.database().ref("routes/" + SettingsPage.uname + "/" + startTime).set(route);
+  HomePageModule.route = []
   // test upload
   // let points = [];
   // let x = 100;

@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { HistoryPage } from './history.page';
 
 import { HistoryPageRoutingModule } from './history-routing.module';
+import { PopoverComponentModule } from '../popover/popover.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    HistoryPageRoutingModule
+    HistoryPageRoutingModule,
+    PopoverComponentModule
   ],
   declarations: [HistoryPage]
 })

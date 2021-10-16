@@ -15,7 +15,10 @@ export class StatsPage implements AfterViewInit {
 
   barChart: any;
 
-  constructor() { }
+  constructor() {
+
+  }
+
 
   ngAfterViewInit() {
     this.barChartMethod();
@@ -25,7 +28,7 @@ export class StatsPage implements AfterViewInit {
     this.barChartMethod();
     event.target.complete();
   }
-
+  
   barChartMethod() {
     if (SettingsPage.valid) {
       let now = Date.now();

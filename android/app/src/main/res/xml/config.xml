@@ -6,5 +6,9 @@
     <param name="android-package" value="org.apache.cordova.geolocation.Geolocation"/>
   </feature>
 
+  <feature name="Pedometer">
+    <param name="android-package" value="org.apache.cordova.pedometer.PedoListener"/>
+  </feature>
+
   
 </widget>

@@ -18,5 +18,5 @@ import { HomePageRoutingModule } from './home-routing.module';
   declarations: [HomePage]
 })
 export class HomePageModule {
-  static route: GeolocationPosition[] = [];
+  static route: any[] = [];
 }
