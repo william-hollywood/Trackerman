@@ -103,10 +103,6 @@ export class Model {
         return str
     }
 
-    static getChartLabels(){
-        
-    }
-
     static getChartData(){
         let now = Date.now();
       let time = now - 604800000 + 86400000;
