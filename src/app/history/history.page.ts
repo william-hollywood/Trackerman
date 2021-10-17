@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { Model } from '../model';
 
-
-
 @Component({
   selector: 'app-history',
   templateUrl: 'history.page.html',
@@ -14,7 +12,6 @@ import { Model } from '../model';
 export class HistoryPage {
 
   list: { id: string; time: string; icon: string; }[] = []
-
 
   constructor(private router: Router, public popoverController: PopoverController) {
     this.doRefresh(null);
@@ -42,7 +39,7 @@ export class HistoryPage {
       if (val.toJSON() != null) {
         val.forEach((route) => {
           let date = new Date(parseInt(route.key));
-          let speed = route.child("distance").val() / (route.child("duration").val() / 3600);
+          let speed = route.child("distance").val() / ((route.child("duration").val() / 1000) / 3600);
           let entry = { id: route.key, time: date.toLocaleString(), icon: speed > Model.walkspeed ? "bicycle" : "walk" };
           this.list.unshift(entry);
         });
