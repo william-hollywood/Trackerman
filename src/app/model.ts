@@ -33,15 +33,19 @@ function gpsError(error: GeolocationPositionError) {
 
 export class Model {
 
+    static tapTimings = []
+    static tapTimeLen = 5;
     static uname = "";
     static passhash = "";
     static walkspeed = 5;
     static valid = false;
     static gpsID: number;
     static route: any[] = [];
+    static routes: firebase.database.DataSnapshot;
 
-    static gpsDelay: any;
-    static lastGps: any;
+    // last gps
+    static gpsDelay = 2;
+    static lastGps = 0;
 
     static options: any = {
         maximumAge: 3600000,
@@ -72,14 +76,64 @@ export class Model {
         }
         let route = { duration: length, distance: dist, route: points }
         Model.firebaseSet("routes/" + Model.uname + "/" + startTime, route);
+        Model.firebaseGetRoutes();
         Model.route = []
     }
 
-    static firebaseGet(path){
+    static firebaseGet(path) {
         return firebase.database().ref(path).get();
     }
 
-    static firebaseSet(path, val){
+    static async firebaseGetRoutes() {
+        await firebase.database().ref("routes/" + Model.uname).get().then((val) => { Model.routes = val });
+    }
+
+    static firebaseSet(path, val) {
         return firebase.database().ref(path).set(val);
+    }
+
+    static getPointsFromRoute(id) {
+        let str = "";
+        let route = Model.routes.child(id).child('route');
+        for (let i = 0; i < route.numChildren(); i++) {
+            let lat = route.child(i.toString()).child("0");
+            let long = route.child(i.toString()).child("1");
+            str += "|" + lat.val() + "," + long.val();
+        }
+        return str
+    }
+
+    static getChartLabels(){
+        
+    }
+
+    static getChartData(){
+        let now = Date.now();
+      let time = now - 604800000 + 86400000;
+      let labelData = [] // array strings, of day starting from 6 days ago until today
+      for (let i = 0; i < 7; i++) {
+        let d = new Date(time);
+        let str = d.toLocaleDateString();
+        labelData.push(str.substr(0, str.length - 5))
+        time += 86400000;
+      }
+        let pastData = [0, 0, 0, 0, 0, 0, 0]; // array numbers, total on each day of past week.
+
+        let val = Model.routes;
+        if (val.toJSON() != null) {
+          val.forEach((route) => {
+            if (parseInt(route.key) > now - 604800000) {
+              let d = new Date(parseInt(route.key));
+              let str = d.toLocaleDateString();
+              str = str.substr(0, str.length - 5)
+              for (let i = 0; i < 7; i++) {
+                if (str == labelData[i]) {
+                  pastData[i] += route.child("distance").val();
+                }
+              }
+            }
+          });
+        }
+      return [labelData,pastData]
     }
 }

@@ -20,45 +20,34 @@ export class HistoryPage {
     this.doRefresh(null);
   }
 
-  currentPopover = null;
-
   async handleButtonClick(ev, selected) {
     let popover = await this.popoverController.create({
       component: PopoverComponent,
-      componentProps: {id: selected},
+      componentProps: { id: selected },
       event: ev,
       translucent: true
     });
-    // alert(popover.innerHTML)
-    this.currentPopover = popover;
     return popover.present();
-  }
-
-  dismissPopover() {
-    if (this.currentPopover) {
-      this.currentPopover.dismiss().then(() => { this.currentPopover = null; });
-    }
   }
 
   navigate(selected) {
     this.router.navigate(['tabs/history/map', { id: selected }])
   }
 
-  doRefresh(event) {
+  async doRefresh(event) {
+    await Model.firebaseGetRoutes();
     if (Model.valid) {
-      Model.firebaseGet("routes/" + Model.uname + "/").then((val) => {
-        if (val.toJSON() != null) {
-          this.list = [];
-          val.forEach((childsnap) => { // for each route
-            let date = new Date(parseInt(childsnap.key));
-            let speed = childsnap.child("distance").val() / (childsnap.child("duration").val() / 3600);
-            let entry = { id: childsnap.key, time: date.toLocaleString(), icon: speed > Model.walkspeed ? "bicycle" : "walk" };
-            this.list.push(entry);
-          });
-        }
-      }).then(() => {
-        if (event != null) event.target.complete();
-      });
+      let val = Model.routes;
+      this.list = [];
+      if (val.toJSON() != null) {
+        val.forEach((route) => {
+          let date = new Date(parseInt(route.key));
+          let speed = route.child("distance").val() / (route.child("duration").val() / 3600);
+          let entry = { id: route.key, time: date.toLocaleString(), icon: speed > Model.walkspeed ? "bicycle" : "walk" };
+          this.list.unshift(entry);
+        });
+      }
+      if (event != null) event.target.complete();
     } else {
       alert("Please login in the Settings")
       if (event != null) event.target.complete();
