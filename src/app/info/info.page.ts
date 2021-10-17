@@ -1,8 +1,6 @@
-import { Component, AfterViewInit, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { formatNumber, Location } from '@angular/common';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/database';
-import { SettingsPage } from '../settings/settings.page';
+import { Component, AfterViewInit} from '@angular/core';
+import { Location } from '@angular/common';
+import { Model } from '../model';
 
 @Component({
   selector: 'app-info',
@@ -19,7 +17,7 @@ export class InfoPage implements AfterViewInit{
 
   ngAfterViewInit(): void {
     let id = this.location.path().split('id=')[1]
-    firebase.database().ref("routes/"+SettingsPage.uname+"/"+id).get().then((val) => {
+    Model.firebaseGet("routes/"+Model.uname+"/"+id).then((val) => {
       this.time = new Date(parseInt(id)).toLocaleString();
       this.duration = parseInt((val.child('duration').val()/1000).toString());
       this.dist = parseFloat(val.child('distance').val()).toPrecision(3)

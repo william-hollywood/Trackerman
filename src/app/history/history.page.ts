@@ -1,10 +1,8 @@
 import { PopoverComponent } from './../popover/popover.component';
 import { Component } from '@angular/core';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/database';
-import { SettingsPage } from '../settings/settings.page';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
+import { Model } from '../model';
 
 
 
@@ -47,14 +45,14 @@ export class HistoryPage {
   }
 
   doRefresh(event) {
-    if (SettingsPage.valid) {
-      firebase.database().ref("routes/" + SettingsPage.uname + "/").get().then((val) => {
+    if (Model.valid) {
+      Model.firebaseGet("routes/" + Model.uname + "/").then((val) => {
         if (val.toJSON() != null) {
           this.list = [];
           val.forEach((childsnap) => { // for each route
             let date = new Date(parseInt(childsnap.key));
             let speed = childsnap.child("distance").val() / (childsnap.child("duration").val() / 3600);
-            let entry = { id: childsnap.key, time: date.toLocaleString(), icon: speed > SettingsPage.walkspeed ? "bicycle" : "walk" };
+            let entry = { id: childsnap.key, time: date.toLocaleString(), icon: speed > Model.walkspeed ? "bicycle" : "walk" };
             this.list.push(entry);
           });
         }

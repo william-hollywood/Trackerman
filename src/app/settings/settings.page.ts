@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import jsSHA from 'jssha'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
+import { Model } from '../model';
 
 @Component({
   selector: 'app-settings',
@@ -10,43 +11,38 @@ import 'firebase/compat/database';
 })
 export class SettingsPage {
 
-  static uname = "";
-  static passhash = "";
-  static walkspeed = 5;
-  static valid = false;
-
   constructor() {}
 
   inputUpdate(type: string, event: any){
     let val = event.target.value;
     switch(type){
       case "uname":
-        SettingsPage.uname = val;
-        SettingsPage.valid = false;
+        Model.uname = val;
+        Model.valid = false;
         break;
       case "pass":
         let shaObj = new jsSHA("SHA-256", "TEXT");
         shaObj.update(val);
         let hash = shaObj.getHash("HEX");
-        SettingsPage.passhash = hash;
-        SettingsPage.valid = false;
+        Model.passhash = hash;
+        Model.valid = false;
         break;
       case "walk":
-        SettingsPage.walkspeed = val;
+        Model.walkspeed = val;
         break;
     }
   }
 
   testLogin(){
     //if firebase get uname == passhash good. change button colour?
-    firebase.database().ref("logins/" + SettingsPage.uname).get().then((val) => {
+    Model.firebaseGet("logins/" + Model.uname).then((val) => {
       if (val.toJSON() != null) {
         //does it match or not
-        if (val.toJSON() == SettingsPage.passhash) {
-          SettingsPage.valid = true;
+        if (val.toJSON() == Model.passhash) {
+          Model.valid = true;
           alert("Logged in successfully");
         } else {
-          SettingsPage.valid = false;
+          Model.valid = false;
           alert("Invalid login");
         }
       }
@@ -55,14 +51,14 @@ export class SettingsPage {
 
   register(){
     //if name not exist && name and pass not empty
-    firebase.database().ref("logins/" + SettingsPage.uname).get().then((val) => {
+    Model.firebaseGet("logins/" + Model.uname).then((val) => {
       //ensure the login doesnt exist already
       if (val.toJSON() == null) {
-        SettingsPage.valid = true;
-        firebase.database().ref("logins/" + SettingsPage.uname).set(SettingsPage.passhash);
+        Model.valid = true;
+        Model.firebaseSet("logins/" + Model.uname, Model.passhash);
         alert("Account successfully created")
       } else { //otherwise its invalid
-        SettingsPage.valid = false;
+        Model.valid = false;
         alert("Account name already in use")
       }
     });

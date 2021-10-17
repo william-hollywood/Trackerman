@@ -1,8 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/database';
-import { SettingsPage } from '../settings/settings.page';
+import { Model } from '../model';
 
 @Component({
   selector: 'app-stats',
@@ -15,9 +13,7 @@ export class StatsPage implements AfterViewInit {
 
   barChart: any;
 
-  constructor() {
-
-  }
+  constructor() {}
 
 
   ngAfterViewInit() {
@@ -30,7 +26,7 @@ export class StatsPage implements AfterViewInit {
   }
   
   barChartMethod() {
-    if (SettingsPage.valid) {
+    if (Model.valid) {
       let now = Date.now();
       let time = now - 604800000 + 86400000;
       let labelData = [] // array strings, of day starting from 6 days ago until today
@@ -42,7 +38,7 @@ export class StatsPage implements AfterViewInit {
       }
       let pastData = [0,0,0,0,0,0,0]; // array numbers, total on each day of past week.
 
-      firebase.database().ref("routes/" + SettingsPage.uname + "/").get().then((val) => {
+      Model.firebaseGet("routes/" + Model.uname + "/").then((val) => {
         if (val.toJSON() != null) {
           val.forEach((route) => {
             if (parseInt(route.key) > now - 604800000){

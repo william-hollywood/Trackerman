@@ -17,6 +17,4 @@ import { HomePageRoutingModule } from './home-routing.module';
   ],
   declarations: [HomePage]
 })
-export class HomePageModule {
-  static route: any[] = [];
-}
+export class HomePageModule {}
