@@ -61,6 +61,9 @@ export class HistoryPage {
       }).then(() => {
         if (event != null) event.target.complete();
       });
+    } else {
+      alert("Please login in the Settings")
+      if (event != null) event.target.complete();
     }
   }
 

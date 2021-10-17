@@ -94,8 +94,8 @@ export class StatsPage implements AfterViewInit {
           });
         }
       });
-
-      
+    } else {
+      alert("Please login in the Settings")
     }
   }
 }

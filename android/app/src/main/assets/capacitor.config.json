@@ -2,5 +2,8 @@
 	"appId": "com.wdh.app",
 	"appName": "TrackerMan",
 	"webDir": "www",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"server": {
+		"url": "http://192.168.1.6:8100"
+	}
 }

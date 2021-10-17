@@ -10,7 +10,7 @@ import { SettingsPage } from '../settings/settings.page';
   styleUrls: ['map.page.scss']
 })
 export class MapPage implements AfterViewInit{
-  points:string;
+  img = ""
 
   constructor(public location: Location ) {}
 
@@ -24,7 +24,7 @@ export class MapPage implements AfterViewInit{
         let long = route.child(i.toString()).child("1");
         str += "|" + lat.val() + "," + long.val();
       }
-      this.points = str;
+      this.img = "https://maps.googleapis.com/maps/api/staticmap?size=1024x1024&path=color:0xff0000ff|weight:5"+str+"&key=AIzaSyDCNbgcEiKA25j7Cg7Jddx0QusAqBRi13c"
     });
   }
 }

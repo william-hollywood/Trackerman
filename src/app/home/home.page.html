@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Home
+      TrackerMan
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,9 +12,14 @@
       <ion-title size="large">Home</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-toggle-gps></app-toggle-gps>
-  <ion-button style="width: 100%;" id="heart" color="danger" (click)="navigate()" >
-    <ion-icon name="heart" size="large" id="heart-icon"></ion-icon>
-  </ion-button>
+  <ion-card>
+    <ion-title style="text-align: center;">Toggle Route Tracking</ion-title>
+    <app-toggle-gps></app-toggle-gps>
+  </ion-card>
+  <ion-card>
+    <ion-title style="text-align: center;">Go To Heart Rate Monitor</ion-title>
+    <ion-button style="width: 100%;" id="heart" color="danger" (click)="navigate()" >
+      <ion-icon name="heart" size="large" id="heart-icon"></ion-icon>
+    </ion-button>
+  </ion-card>
 </ion-content>

@@ -91,6 +91,8 @@ export class ToggleGpsComponent implements OnInit {
         saveRouteToFirebase();
         this.color = "danger"
       }
+    } else {
+      alert("Please login in the Settings")
     }
   }
 

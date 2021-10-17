@@ -10,10 +10,10 @@ import 'firebase/compat/database';
 })
 export class SettingsPage {
 
-  static uname = "test";
-  static passhash = "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1";
+  static uname = "";
+  static passhash = "";
   static walkspeed = 5;
-  static valid = true;
+  static valid = false;
 
   constructor() {}
 
@@ -44,9 +44,10 @@ export class SettingsPage {
         //does it match or not
         if (val.toJSON() == SettingsPage.passhash) {
           SettingsPage.valid = true;
-          alert("True");
+          alert("Logged in successfully");
         } else {
           SettingsPage.valid = false;
+          alert("Invalid login");
         }
       }
     });
@@ -59,8 +60,10 @@ export class SettingsPage {
       if (val.toJSON() == null) {
         SettingsPage.valid = true;
         firebase.database().ref("logins/" + SettingsPage.uname).set(SettingsPage.passhash);
+        alert("Account successfully created")
       } else { //otherwise its invalid
         SettingsPage.valid = false;
+        alert("Account name already in use")
       }
     });
   }
