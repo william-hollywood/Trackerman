@@ -1,11 +1,11 @@
-# Calculatorinator
-Welcome to my app the Calculatorinator. Yes it's basically a fancy calculator
+# TrackerMan
+Welcome to my app Tackerman. It tracks routes which the user has walked on and can display stats about previous walks or specific ones on a map.
 
 ## Getting Started
 There are the following steps before further development on this app can be continutes.
 
 ### Ensuring you have everything installed.
-This project uses yarn as its package manager. Before progressing further ensure you have `nodejs` and `yarn` installed on your device.
+This project uses npm as its package manager. Before progressing further ensure you have `nodejs` installed on your device.
 
 ### Setting up the project
 You can download this project using:
