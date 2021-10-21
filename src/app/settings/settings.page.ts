@@ -11,14 +11,21 @@ export class SettingsPage {
 
   constructor() {}
 
+  /**
+   * text input field handler
+   * @param type uname, pass or walk
+   * @param event whats the content of the updated text
+   */
   inputUpdate(type: string, event: any){
     let val = event.target.value;
     switch(type){
       case "uname":
+        // set the uname
         Model.uname = val;
         Model.valid = false;
         break;
       case "pass":
+        // hash the password and save the model variable
         let shaObj = new jsSHA("SHA-256", "TEXT");
         shaObj.update(val);
         let hash = shaObj.getHash("HEX");
@@ -26,11 +33,15 @@ export class SettingsPage {
         Model.valid = false;
         break;
       case "walk":
+        // set the walkspeed
         Model.walkspeed = val;
         break;
     }
   }
 
+  /**
+   * method called when login button is pressed
+   */
   testLogin(){
     //if firebase get uname == passhash good. change button colour?
     Model.firebaseGet("logins/" + Model.uname).then((val) => {
@@ -47,6 +58,9 @@ export class SettingsPage {
     });
   }
 
+  /**
+   * method called when register button is pressed
+   */
   register(){
     //if name not exist && name and pass not empty
     Model.firebaseGet("logins/" + Model.uname).then((val) => {

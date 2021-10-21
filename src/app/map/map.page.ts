@@ -8,10 +8,14 @@ import { Model } from '../model';
   styleUrls: ['map.page.scss']
 })
 export class MapPage implements AfterViewInit{
+  //img link
   img = ""
 
   constructor(public location: Location ) {}
 
+  /**
+   * construct a custom URL to get a static maps image from
+   */
   ngAfterViewInit(): void {
     let id = this.location.path().split('id=')[1];
     let str = Model.getPointsFromRoute(id);

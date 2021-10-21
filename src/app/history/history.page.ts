@@ -13,25 +13,37 @@ export class HistoryPage {
 
   list: { id: string; time: string; icon: string; }[] = []
 
+  /**
+   * Refresh page on load
+   * @param router 
+   * @param popoverController 
+   */
   constructor(private router: Router, public popoverController: PopoverController) {
     this.doRefresh(null);
   }
 
+  /**
+   * present a popover when an entry is selected
+   * @param ev 
+   * @param selected 
+   * @returns 
+   */
   async handleButtonClick(ev, selected) {
     let popover = await this.popoverController.create({
       component: PopoverComponent,
-      componentProps: { id: selected },
+      componentProps: { id: selected }, // pass through the id of the selected route
       event: ev,
       translucent: true
     });
     return popover.present();
   }
 
-  navigate(selected) {
-    this.router.navigate(['tabs/history/map', { id: selected }])
-  }
-
+  /**
+   * called when the ion-refresher is activated
+   * @param event refresh event to complete when finished
+   */
   async doRefresh(event) {
+    // update the routes before updating the list
     await Model.firebaseGetRoutes();
     if (Model.valid) {
       let val = Model.routes;

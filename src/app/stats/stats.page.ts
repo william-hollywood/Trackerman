@@ -14,10 +14,17 @@ export class StatsPage implements AfterViewInit {
 
   constructor() { }
 
+  /**
+   * refresh on load
+   */
   async ngAfterViewInit() {
     this.doRefresh(null)
   }
 
+  /**
+   * update the stats
+   * @param event ion-refresher event
+   */
   async doRefresh(event) {
     await Model.firebaseGetRoutes();
     this.barChartMethod();
@@ -25,6 +32,12 @@ export class StatsPage implements AfterViewInit {
       event.target.complete();
   }
 
+  /**
+   * helper method to make a chart object
+   * @param labelData what are the labels
+   * @param pastData  what are the data values
+   * @returns chart
+   */
   makeChart(labelData, pastData) {
     Chart.pluginService.register({
       afterDraw: function (chart) {
@@ -84,6 +97,9 @@ export class StatsPage implements AfterViewInit {
     });
   }
 
+  /**
+   * called when a new bar chart should be constructed
+   */
   barChartMethod() {
     if (Model.valid) {
       let data = Model.getChartData()

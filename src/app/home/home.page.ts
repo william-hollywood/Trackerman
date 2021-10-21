@@ -10,6 +10,9 @@ export class HomePage {
 
   constructor(private router: Router) {}
 
+  /**
+   * basic navigate method for the hrtap button
+   */
   navigate(){
     this.router.navigate(['tabs/home/hrtap'])
   }

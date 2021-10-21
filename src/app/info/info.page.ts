@@ -8,6 +8,7 @@ import { Model } from '../model';
   styleUrls: ['info.page.scss']
 })
 export class InfoPage implements AfterViewInit {
+  // items to display
   dist: any;
   time: string;
   duration: any;
@@ -15,6 +16,9 @@ export class InfoPage implements AfterViewInit {
 
   constructor(public location: Location) { }
 
+  /**
+   * update the displayed values after the page as loaded the view
+   */
   ngAfterViewInit(): void {
     let id = this.location.path().split('id=')[1]
     let val = Model.routes.child(id);

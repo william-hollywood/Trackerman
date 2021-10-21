@@ -9,6 +9,9 @@ import { Model } from '../model';
 export class ToggleGpsComponent implements OnInit {
   color: string = "danger";
 
+  /**
+   * toggle the GPS on/off ig the user is valid
+   */
   toggleGPS() {
     if (Model.valid) {
       if (this.color == "danger") {
