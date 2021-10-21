@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import jsSHA from 'jssha'
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/database';
 import { Model } from '../model';
 
 @Component({

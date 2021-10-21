@@ -1,4 +1,9 @@
-Features
+Features:
+1. Route Tracking
+2. Route Information Display
+3. Route Map visualization
+4. Past Activity Chart
+5. Accounts
 
 Screens:
 1. Menu Page
