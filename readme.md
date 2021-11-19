@@ -1,5 +1,6 @@
 # TrackerMan
-This is my SWEN325 
+This is my SWEN325 app. So to all you nosey students. Don't steal my idea. Or do, I don't care.
+
 Welcome to my app Tackerman. It tracks routes which the user has walked on and can display stats about previous walks or specific ones on a map.
 
 ## Getting Started
